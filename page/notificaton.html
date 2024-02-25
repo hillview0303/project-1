@@ -19,7 +19,7 @@
         width: 100%;
       }
       .alert {
-        cursor: pointer; /* 알림 위에 마우스 커서 추가 */
+        cursor: pointer;
       }
     </style>
   </head>
@@ -92,7 +92,7 @@
             </li>
           </ul>
         </div>
-        <!-- 알림이 표시될 영역 -->
+
         <div id="notification-area" class="mt-3"></div>
       </div>
     </div>
@@ -136,11 +136,9 @@
             box.addEventListener("click", () => {
               const type = box.getAttribute("data-type");
               if (type === "system") {
-                window.location.href =
-                  "https://example.com/system-notification-page"; // 시스템 알림 페이지 URL
+                window.location.href = "시스템 알림 페이지 URL";
               } else if (type === "interest") {
-                window.location.href =
-                  "https://example.com/interest-notification-page"; // 관심기업 신규공고 페이지 URL
+                window.location.href = "관심기업 신규공고 페이지 URL";
               }
             });
           });
@@ -156,7 +154,7 @@
       var xhr = new XMLHttpRequest();
 
       // 서버와의 통신 설정
-      xhr.open("GET", "https://example.com/api/system-notifications", true); // true는 비동기 통신을 의미
+      xhr.open("GET", "", true); // true는 비동기 통신을 의미
 
       // 통신 완료 후 실행할 콜백 함수 등록
       xhr.onreadystatechange = function () {
@@ -201,11 +199,9 @@
             box.addEventListener("click", () => {
               const type = box.getAttribute("data-type");
               if (type === "system") {
-                window.location.href =
-                  "https://example.com/system-notification-page"; // 시스템 알림 페이지 URL
+                window.location.href = "시스템 알림 페이지 URL";
               } else if (type === "interest") {
-                window.location.href =
-                  "https://example.com/interest-notification-page"; // 관심기업 신규공고 페이지 URL
+                window.location.href = "관심기업 신규공고 페이지 URL";
               }
             });
           });
