@@ -202,91 +202,69 @@
       <p>footer</p>
     </footer>
     <script>
-      function toggleHeart(icon) {
+      const toggleHeart = (icon) => {
         icon.classList.toggle("active");
-      }
+      };
 
-      function goToDetailPage(cardNumber) {
-        // 여기서 채용 공고 상세 페이지로 이동하는 코드를 작성합니다.
-        // 예를 들어, window.location.href를 사용하여 URL을 변경하거나,
-        // 사용자가 정의한 라우팅 시스템을 사용할 수 있습니다.
+      const goToDetailPage = (cardNumber) => {
         console.log("Go to detail page of card " + cardNumber);
-      }
-      // // ajax
-      //  // 최근 확인한 공고 정보를 받아오는 함수
-      //  function getRecentJobs() {
-      //     // AJAX를 이용하여 서버에서 최근 확인한 공고 정보를 가져옵니다.
-      //     var xhttp = new XMLHttpRequest();
-      //     xhttp.onreadystatechange = function() {
-      //         if (this.readyState == 4 && this.status == 200) {
-      //             document.getElementById("recentJobs").innerHTML = this.responseText;
-      //         }
-      //     };
-      //     xhttp.open("GET", "get_recent_jobs.php", true);
-      //     xhttp.send();
-      // }
+      };
 
-      // 최근 확인한 공고 정보를 받아오는 함수
-      function getRecentJobs() {
-        // 최근 확인한 공고 정보를 가져오는 로직을 작성합니다.
-        // 예를 들어, 로컬 스토리지에서 데이터를 가져오거나,
-        // AJAX 요청을 통해 서버에서 데이터를 받아올 수 있습니다.
-        // 이 예시에서는 간단하게 로컬 스토리지에 저장된 데이터를 사용합니다.
+      const getRecentJobs = () => {
         const recentJobs = localStorage.getItem("recentJobs");
         if (recentJobs) {
           document.getElementById("recentJobs").innerHTML = recentJobs;
         }
-      }
+      };
 
-      // 페이지 로드 시 최근 확인한 공고 정보를 가져옴
-      window.onload = getRecentJobs;
-
-      function applyFilters() {
+      const applyFilters = () => {
         const checkboxes = document.querySelectorAll(".checkbox");
         const selectedFilters = {};
+
+        // 필터링이 선택되었는지 확인하고, 선택된 필터를 저장합니다.
         checkboxes.forEach((checkbox) => {
-          if (checkbox.checked) {
-            const category = checkbox.getAttribute("value");
-            selectedFilters[category] = true;
-          }
+          const category = checkbox.value;
+          selectedFilters[category] = checkbox.checked;
         });
 
         const cards = document.querySelectorAll(".card");
         cards.forEach((card) => {
-          const tech = card.getAttribute("data-tech");
-          const exp = card.getAttribute("data-exp");
-          const location = card.getAttribute("data-location");
+          const tech = card.dataset.tech;
+          const exp = card.dataset.exp;
+          const location = card.dataset.location;
 
-          const techFilter = !selectedFilters[tech] || selectedFilters[tech];
-          const expFilter = !selectedFilters[exp] || selectedFilters[exp];
-          const locationFilter =
-            !selectedFilters[location] || selectedFilters[location];
-
-          if (techFilter && expFilter && locationFilter) {
+          // 선택된 필터가 없는 경우 모든 카드를 보여줍니다.
+          if (Object.values(selectedFilters).every((value) => !value)) {
             card.style.display = "block";
           } else {
-            card.style.display = "none";
+            // 선택된 필터와 카드의 데이터 속성을 비교하여 필터링을 적용합니다.
+            const techFilter = !selectedFilters[tech] || selectedFilters[tech];
+            const expFilter = !selectedFilters[exp] || selectedFilters[exp];
+            const locationFilter =
+              !selectedFilters[location] || selectedFilters[location];
+
+            // 모든 선택된 필터에 해당하는 카드만 보여줍니다.
+            if (techFilter && expFilter && locationFilter) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
           }
         });
-      }
 
-      function updateTotalJobsCount() {
-        const totalJobsCount = document.querySelectorAll(".card").length;
-        document.getElementById("totalJobs").textContent = totalJobsCount;
-      }
-
-      // 페이지 로드 시 총 공고 건수 업데이트
-      window.onload = function () {
+        // 총 공고 건수 업데이트
         updateTotalJobsCount();
-        getRecentJobs(); // 최근 확인한 공고 정보 가져오기
       };
 
-      // 필터 적용 후 총 공고 건수 업데이트
-      function applyFilters() {
-        // 필터 적용 로직
-        // 필터 적용 후 총 공고 건수 업데이트
+      const updateTotalJobsCount = () => {
+        const totalJobsCount = document.querySelectorAll(".card").length;
+        document.getElementById("totalJobs").textContent = totalJobsCount;
+      };
+
+      window.onload = () => {
         updateTotalJobsCount();
-      }
+        getRecentJobs();
+      };
     </script>
   </body>
 </html>
