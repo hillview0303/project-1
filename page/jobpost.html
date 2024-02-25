@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>지원자 관리</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            max-width: 70%;
+            margin: 50px auto 100px; 
+        }
+
+      
+        .card {
+            border: 1px solid lightgray;
+            box-shadow: 0 4px 4px 0 grey;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative; 
+        }
+        .select-box {
+            border: 1px solid black; 
+            background-color: lightgrey; 
+            padding: 10px;
+        }
+
+  
+        .like-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .like-icon.active {
+            color: red;
+        }
+
+        .checkbox {
+            margin-right: 5px;
+        }
+
+        .fixed-div {
+            position: fixed;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 1px solid black;
+            background-color: lightgray;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>header</h1>
+    </header>
+    <h3 style="text-align: left; margin-left: 20px;">지원자 관리</h3>
+   
+    <div class="container" id="container">
+
+        <div class="select-box">
+            <h4>기술스택</h4>
+            <input type="checkbox" class="checkbox" value="JAVA"> JAVA
+            <input type="checkbox" class="checkbox" value="HTML"> HTML
+            <input type="checkbox" class="checkbox" value="CSS"> CSS
+            <br> 
+            <h4>경력</h4>
+            <input type="checkbox" class="checkbox" value="신입"> 신입
+            <input type="checkbox" class="checkbox" value="경력"> 경력
+            <input type="checkbox" class="checkbox" value="주니어"> 주니어
+            <br> 
+            <h4>지역</h4>
+            <input type="checkbox" class="checkbox" value="서울"> 서울
+            <input type="checkbox" class="checkbox" value="경기"> 경기
+            <input type="checkbox" class="checkbox" value="인천"> 인천
+
+            <h4>학력</h4>
+            <input type="checkbox" class="checkbox" value="고졸"> 고졸
+            <input type="checkbox" class="checkbox" value="대졸"> 대졸
+            <input type="checkbox" class="checkbox" value="석사"> 석사
+            <h4>연봉</h4>
+            <input type="checkbox" class="checkbox" value="3,000만원 이하"> 3,000만원 이하
+            <input type="checkbox" class="checkbox" value="3,000만원 ~ 5,000만원"> 3,000만원 ~ 5,000만원
+            <input type="checkbox" class="checkbox" value="5,000만원 이상"> 5,000만원 이상
+            <h4>직무</h4>
+            <input type="checkbox" class="checkbox" value="개발"> 개발
+            <input type="checkbox" class="checkbox" value="디자인"> 디자인
+            <input type="checkbox" class="checkbox" value="마케팅"> 마케팅
+            <h4>고용형태</h4>
+            <input type="checkbox" class="checkbox" value="정규직"> 정규직
+            <input type="checkbox" class="checkbox" value="계약직"> 계약직
+            <input type="checkbox" class="checkbox" value="인턴"> 인턴 
+            <br>
+            <button class="btn" onclick="applyFilters()">필터 적용하기</button>
+        </div>
+
+        <div class="fixed-div">고정된 div</div>
+        
+        <div class="card" data-tech="JAVA" data-exp="신입" data-location="서울">
+            <h3>회사명</h3>
+            <h4>제목(직무)</h4>
+            <p><small>지역</small> <small>경력</small> <small>학력</small></p>
+            <p><small>마감날짜</small></p>
+            <span class="like-icon" onclick="toggleHeart(this)">&#10084;</span>
+        </div>
+        
+        <div class="card" data-tech="HTML" data-exp="경력" data-location="경기">
+            <h3>회사명</h3>
+            <h4>제목(직무)</h4>
+            <p><small>지역</small> <small>경력</small> <small>학력</small></p>
+            <p><small>마감날짜</small></p>
+            <span class="like-icon" onclick="toggleHeart(this)">&#10084;</span>
+        </div>
+
+        <div class="card" data-tech="CSS" data-exp="주니어" data-location="인천">
+            <h3>회사명</h3>
+            <h4>제목(직무)</h4>
+            <p><small>지역</small> <small>경력</small> <small>학력</small></p>
+            <p><small>마감날짜</small></p>
+            <span class="like-icon" onclick="toggleHeart(this)">&#10084;</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>footer</p>
+    </footer>
+    <script>
+        function toggleHeart(icon) {
+            icon.classList.toggle("active");
+        }
+
+        function goToDetailPage(cardNumber) {
+            // 여기서 채용 공고 상세 페이지로 이동하는 코드를 작성합니다.
+            // 예를 들어, window.location.href를 사용하여 URL을 변경하거나,
+            // 사용자가 정의한 라우팅 시스템을 사용할 수 있습니다.
+            console.log("Go to detail page of card " + cardNumber);
+        }
+        // // ajax
+        //  // 최근 확인한 공고 정보를 받아오는 함수
+        //  function getRecentJobs() {
+        //     // AJAX를 이용하여 서버에서 최근 확인한 공고 정보를 가져옵니다.
+        //     var xhttp = new XMLHttpRequest();
+        //     xhttp.onreadystatechange = function() {
+        //         if (this.readyState == 4 && this.status == 200) {
+        //             document.getElementById("recentJobs").innerHTML = this.responseText;
+        //         }
+        //     };
+        //     xhttp.open("GET", "get_recent_jobs.php", true);
+        //     xhttp.send();
+        // }
+
+        // 최근 확인한 공고 정보를 받아오는 함수
+        function getRecentJobs() {
+            // 최근 확인한 공고 정보를 가져오는 로직을 작성합니다.
+            // 예를 들어, 로컬 스토리지에서 데이터를 가져오거나,
+            // AJAX 요청을 통해 서버에서 데이터를 받아올 수 있습니다.
+            // 이 예시에서는 간단하게 로컬 스토리지에 저장된 데이터를 사용합니다.
+            const recentJobs = localStorage.getItem('recentJobs');
+            if (recentJobs) {
+                document.getElementById('recentJobs').innerHTML = recentJobs;
+            }
+        }
+
+        // 페이지 로드 시 최근 확인한 공고 정보를 가져옴
+        window.onload = getRecentJobs;
+
+        function applyFilters() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const selectedFilters = {};
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const category = checkbox.getAttribute('value');
+                    selectedFilters[category] = true;
+                }
+            });
+
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const tech = card.getAttribute('data-tech');
+                const exp = card.getAttribute('data-exp');
+                const location = card.getAttribute('data-location');
+
+                const techFilter = !selectedFilters[tech] || selectedFilters[tech];
+                const expFilter = !selectedFilters[exp] || selectedFilters[exp];
+                const locationFilter = !selectedFilters[location] || selectedFilters[location];
+
+                if (techFilter && expFilter && locationFilter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>지원자 관리</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            max-width: 70%;
+            margin: 50px auto 100px; /* 상단 여백 추가 및 하단 여백 조정 */
+        }
+
+        .card {
+            border: 1px solid lightgray;
+            box-shadow: 0 4px 4px 0 grey;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative; 
+        }
+
+        .button-container {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .pass-button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .fail-button {
+            width: 100%;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>header</h1>
+    </header>
+    
+    <h3 style="text-align: left; margin-left: 20px;">지원자 관리</h3>
+   
+    <div class="container" id="container">
+        <div class="card" id="card-1" onclick="goToDetailPage(1)">
+            <h3>지원자1</h3>
+            <p>인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.</p>
+            <p><small>신입 / 경력</small> <small>학력</small></p>
+            <div class="button-container">
+                <button class="pass-button" onclick="pass(1)">합격</button>
+                <button class="fail-button" onclick="fail(1)">불합격</button>
+            </div>
+        </div>
+        
+        <div class="card" id="card-2" onclick="goToDetailPage(1)">
+            <h3>지원자2</h3>
+            <p>인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.</p>
+            <p><small>신입 / 경력</small> <small>학력</small></p>
+            <div class="button-container">
+                <button class="pass-button" onclick="pass(2)">합격</button>
+                <button class="fail-button" onclick="fail(2)">불합격</button>
+            </div>
+        </div>
+
+        <div class="card" id="card-1" onclick="goToDetailPage(3)">
+            <h3>지원자3</h3>
+            <p>인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.</p>
+            <p><small>신입 / 경력</small> <small>학력</small></p>
+            <div class="button-container">
+                <button class="pass-button" onclick="pass(3)">합격</button>
+                <button class="fail-button" onclick="fail(3)">불합격</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>footer</p>
+    </footer>
+
+    <script>
+         // 서버에서 지원자 정보를 받아오는 함수
+         async function fetchApplicants() {
+            try {
+                const response = await fetch('https://example.com/api/applicants');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching applicants:', error);
+                return [];
+            }
+        }
+
+        // 받아온 지원자 정보를 화면에 표시하는 함수
+        async function displayApplicants() {
+            const container = document.getElementById('container');
+            const applicants = await fetchApplicants();
+
+            // 받아온 지원자 정보를 순회하며 카드를 생성하여 화면에 추가
+            applicants.forEach(applicant => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h3>${applicant.name}</h3>
+                    <p>${applicant.description}</p>
+                    <p><small>${applicant.type}</small> <small>${applicant.education}</small></p>
+                    <div class="button-container">
+                        <button class="pass-button" onclick="pass(${applicant.id})">합격</button>
+                        <button class="fail-button" onclick="fail(${applicant.id})">불합격</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 페이지 로드 시 지원자 정보를 표시
+        displayApplicants();
+
+        function goToDetailPage(id) {
+            window.location.href = `detail-page.html?id=${id}`;
+        }
+
+        function pass(id) {
+            alert(`ID ${id}의 지원자를 '합격'으로 처리합니다.`);
+        }
+
+        function fail(id) {
+            alert(`ID ${id}의 지원자를 '불합격'으로 처리합니다.`);
+        }
+    </script>
+</body>
+
+</html>
