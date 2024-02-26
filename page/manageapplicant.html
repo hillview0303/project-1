@@ -1,261 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>지원자 관리</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
 
-      footer {
-        background-color: #333;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>지원자 관리</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-      .container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
-        max-width: 90%;
-        margin: 10px;
-      }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
 
-      .card {
-        border: 1px solid lightgray;
-        box-shadow: 0 4px 4px 0 grey;
-        padding: 10px;
-        margin: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-        position: relative;
-      }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-width: 90%;
+      margin: 10px;
+    }
 
-      .button-container {
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-      }
+    .card {
+      border: 1px solid lightgray;
+      box-shadow: 0 4px 4px 0 grey;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+    }
 
-      .pass-button {
-        width: 100%;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 12px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 16px;
-        cursor: pointer;
-      }
+    .button-container {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
 
-      .fail-button {
-        width: 100%;
-        background-color: #f44336;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 12px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 16px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
+    .pass-button {
+      width: 100%;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-  <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">사이트이름/로고</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapsibleNavbar"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <!-- 로그인안하고 볼 수 있는 헤더 -->
+    .fail-button {
+      width: 100%;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-            <li class="nav-item">
-              <a class="nav-link" href="">채용공고</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">자유게시판</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">회원가입</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">로그인</a>
-            </li>
-          </ul>
-        </div>
+    .status-box {
+      width: fit-content;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
 
-        <div>
-          <form class="d-flex">
-            <input class="form-control me-2" type="text" placeholder="🔍" />
-            <button class="btn btn-primary">검색</button>
-          </form>
-        </div>
+    .status-pending {
+      background-color: #ffc107;
+      color: black;
+    }
+
+    .status-processing {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">사이트이름/로고</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <!-- 로그인안하고 볼 수 있는 헤더 -->
+          <li class="nav-item">
+            <a class="nav-link" href="">채용공고</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">자유게시판</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">로그인</a>
+          </li>
+        </ul>
       </div>
-    </nav>
-
-    <h3
-      style="
-        text-align: left;
-        margin-left: 20px;
-        margin-top: 40px;
-        font-size: 20px;
-      "
-    >
-      지원자 관리
-    </h3>
-
-    <div class="container" id="container">
-      <div class="card" id="card-1" onclick="goToDetailPage(1)">
-        <h3>지원자1</h3>
-        <p>인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.</p>
-        <p><small>신입 / 경력</small> <small>학력</small></p>
-        <div class="button-container">
-          <button class="pass-button" onclick="pass(1)">합격</button>
-          <button class="fail-button" onclick="fail(1)">불합격</button>
-        </div>
-      </div>
-
-      <div class="card" id="card-2" onclick="goToDetailPage(2)">
-        <h3>지원자2</h3>
-        <p>인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.</p>
-        <p><small>신입 / 경력</small> <small>학력</small></p>
-        <div class="button-container">
-          <button class="pass-button" onclick="pass(2)">합격</button>
-          <button class="fail-button" onclick="fail(2)">불합격</button>
-        </div>
-      </div>
-
-      <div class="card" id="card-3" onclick="goToDetailPage(3)">
-        <h3>지원자3</h3>
-        <p>인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.</p>
-        <p><small>신입 / 경력</small> <small>학력</small></p>
-        <div class="button-container">
-          <button class="pass-button" onclick="pass(3)">합격</button>
-          <button class="fail-button" onclick="fail(3)">불합격</button>
-        </div>
+      <div>
+        <form class="d-flex">
+          <input class="form-control me-2" type="text" placeholder="🔍">
+          <button class="btn btn-primary">검색</button>
+        </form>
       </div>
     </div>
+  </nav>
 
-    <footer>
-      <p>footer</p>
-    </footer>
+  <h3 style="text-align: left; margin-left: 20px; margin-top: 40px; font-size: 20px;">지원자 관리</h3>
 
-    <script>
-      // 서버에서 지원자 정보를 받아오는 함수
-      async function fetchApplicants() {
-        try {
-          const response = await fetch("데이터를 가져오는 주소");
-          const data = await response.json();
-          return data;
-        } catch (error) {
-          console.error("Error fetching applicants:", error);
-          return [];
-        }
-      }
+  <div class="container" id="container">
+  </div>
 
-      // 받아온 지원자 정보를 화면에 표시하는 함수
-      async function displayApplicants() {
-        const container = document.getElementById("container");
-        const applicants = await fetchApplicants();
+  <footer>
+    <p>footer</p>
+  </footer>
 
-        // 받아온 지원자 정보를 순회하며 카드를 생성하여 화면에 추가
-        applicants.forEach((applicant) => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
+  <script>
+    // 더미 데이터
+    const dummyData = [
+      { id: 1, name: "지원자1", description: "인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.", type: "신입", education: "학력", status: "pending" },
+      { id: 2, name: "지원자2", description: "인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.", type: "신입", education: "학력", status: "processing" },
+      { id: 3, name: "지원자3", description: "인재를 이끌어가는 열정적인 리더쉽을 가진 누구 입니다.", type: "신입", education: "학력", status: "pending" }
+    ];
+
+    // 받아온 지원자 정보를 화면에 표시하는 함수
+    async function displayApplicants() {
+      const container = document.getElementById("container");
+
+      // 더미 데이터를 순회하며 카드를 생성하여 화면에 추가
+      dummyData.forEach((applicant) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
             <h3>${applicant.name}</h3>
             <p>${applicant.description}</p>
-            <p><small>${applicant.type}</small> <small>${
-            applicant.education
-          }</small></p>
+            <p><small>${applicant.type} / ${applicant.education}</small></p>
+            <div class="status-box ${applicant.status === 'pending' ? 'status-pending' : 'status-processing'}" id="status-${applicant.id}">
+                ${applicant.status === 'pending' ? '열람전' : '검토중'}
+            </div>
             <div class="button-container">
-                <button class="pass-button" onclick="pass(${parseInt(
-                  applicant.id
-                )})">합격</button>
-                <button class="fail-button" onclick="fail(${parseInt(
-                  applicant.id
-                )})">불합격</button>
+                <button class="pass-button" onclick="pass(${parseInt(applicant.id)})">합격</button>
+                <button class="fail-button" onclick="fail(${parseInt(applicant.id)})">불합격</button>
             </div>
         `;
-          container.appendChild(card);
-        });
-      }
+        container.appendChild(card);
+      });
+    }
 
-      // 페이지 로드 시 지원자 정보를 표시
-      displayApplicants();
+    // 페이지 로드 시 지원자 정보를 표시
+    displayApplicants();
 
-      function goToDetailPage(id) {
-        window.location.href = `detail-page.html?id=${id}`;
+    // 합격 처리 함수
+    async function pass(id) {
+      try {
+        // 여기에 서버 요청 코드 작성
+        alert(`ID ${id}의 지원자를 '합격'으로 처리했습니다.`);
+      } catch (error) {
+        console.error("네트워크 오류:", error);
+        alert("네트워크 오류: 합격 처리 실패");
       }
+    }
 
-      async function pass(id) {
-        try {
-          const response = await fetch("/api/pass", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: id }),
-          });
-          if (response.ok) {
-            alert(`ID ${id}의 지원자를 '합격'으로 처리했습니다.`);
-          } else {
-            alert("서버 오류: 합격 처리 실패");
-          }
-        } catch (error) {
-          console.error("네트워크 오류:", error);
-          alert("네트워크 오류: 합격 처리 실패");
-        }
+    // 불합격 처리 함수
+    async function fail(id) {
+      try {
+        // 여기에 서버 요청 코드 작성
+        alert(`ID ${id}의 지원자를 '불합격'으로 처리했습니다.`);
+      } catch (error) {
+        console.error("네트워크 오류:", error);
+        alert("네트워크 오류: 불합격 처리 실패");
       }
+    }
+  </script>
+</body>
 
-      async function fail(id) {
-        try {
-          const response = await fetch("/api/fail", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: id }),
-          });
-          if (response.ok) {
-            alert(`ID ${id}의 지원자를 '불합격'으로 처리했습니다.`);
-          } else {
-            alert("서버 오류: 불합격 처리 실패");
-          }
-        } catch (error) {
-          console.error("네트워크 오류:", error);
-          alert("네트워크 오류: 불합격 처리 실패");
-        }
-      }
-    </script>
-  </body>
 </html>
